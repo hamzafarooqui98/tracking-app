@@ -6,7 +6,7 @@ import * as Location from "expo-location";
 //--------------------
 //Constants
 //--------------------
-const { GET_CURRENT_LOCATION } = constants;
+const { GET_CURRENT_LOCATION, GET_INPUT } = constants;
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -52,6 +52,14 @@ export const getCurrentLocation = () => async (dispatch) => {
   }
 };
 
+//GET USER INPUT
+export const getInputData = (payload) => {
+  return {
+    type: GET_INPUT,
+    payload,
+  };
+};
+
 //--------------------
 //Action Handlers
 //--------------------
@@ -73,12 +81,25 @@ const handleGetCurrentLocation = (state, action) =>
     },
   });
 
+const handleGetInputDate = (state, action) => {
+  const { key, value } = action.payload;
+  return update(state, {
+    inputData: {
+      [key]: {
+        $set: value,
+      },
+    },
+  });
+};
+
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
+  GET_INPUT: handleGetInputDate,
 };
 
 const initialState = {
   region: {},
+  inputData: {},
 };
 
 export const HomeReducer = (state = initialState, action) => {

@@ -4,14 +4,16 @@ import MapView, { Marker } from "react-native-maps";
 
 import styles from "./mapContainerStyles";
 import SearchBox from "../SearchBox/index";
+import SearchResults from "../SearchResults/index";
 
-const MapContainer = ({ region }) => {
+const MapContainer = ({ region, getInputData }) => {
   return (
     <View style={styles.Container}>
       <MapView style={styles.map} region={region}>
         <Marker coordinate={region} pinColor="green" />
       </MapView>
-      <SearchBox />
+      <SearchBox getInputData={getInputData} />
+      <SearchResults />
     </View>
   );
 };

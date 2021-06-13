@@ -5,7 +5,15 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import styles from "./searchBoxStyles";
 
-const SearchBox = () => {
+const SearchBox = ({ getInputData }) => {
+  function handleInput(key, val) {
+    getInputData({
+      key,
+      value: val,
+    });
+    // getAddressPredictions();
+  }
+
   return (
     <View style={styles.searchBox}>
       <View style={styles.inputWrapper}>
@@ -15,6 +23,7 @@ const SearchBox = () => {
           <Input
             style={styles.inputSearch}
             placeholder="Choose pick-up location"
+            onChangeText={handleInput.bind(this, "pickUp")}
           />
         </InputGroup>
       </View>
@@ -26,6 +35,7 @@ const SearchBox = () => {
           <Input
             style={styles.inputSearch}
             placeholder="Choose drop-off location"
+            onChangeText={handleInput.bind(this, "dropOff")}
           />
         </InputGroup>
       </View>
