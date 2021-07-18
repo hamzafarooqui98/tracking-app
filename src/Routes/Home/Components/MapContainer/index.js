@@ -6,14 +6,27 @@ import styles from "./mapContainerStyles";
 import SearchBox from "../SearchBox/index";
 import SearchResults from "../SearchResults/index";
 
-const MapContainer = ({ region, getInputData }) => {
+const MapContainer = ({
+  region,
+  getInputData,
+  toggleSearchResultModal,
+  getAddressPredictions,
+  resultTypes,
+  predictions,
+}) => {
   return (
     <View style={styles.Container}>
       <MapView style={styles.map} region={region}>
         <Marker coordinate={region} pinColor="green" />
       </MapView>
-      <SearchBox getInputData={getInputData} />
-      <SearchResults />
+      <SearchBox
+        getInputData={getInputData}
+        toggleSearchResultModal={toggleSearchResultModal}
+        getAddressPredictions={getAddressPredictions}
+      />
+      {(resultTypes.pickUp || resultTypes.dropOff) && (
+        <SearchResults predictions={predictions} />
+      )}
     </View>
   );
 };

@@ -22,6 +22,10 @@ class Home extends React.Component {
           <MapContainer
             region={this.props.region}
             getInputData={this.props.getInputData}
+            toggleSearchResultModal={this.props.toggleSearchResultModal}
+            getAddressPredictions={this.props.getAddressPredictions}
+            resultTypes={this.props.resultTypes}
+            predictions={this.props.predictions}
           />
         )}
       </Container>
