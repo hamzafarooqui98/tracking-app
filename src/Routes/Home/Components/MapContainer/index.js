@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "native-base";
+import { View, Content } from "native-base";
 import MapView, { Marker } from "react-native-maps";
 
 import styles from "./mapContainerStyles";
@@ -15,7 +15,8 @@ const MapContainer = ({
   predictions,
 }) => {
   return (
-    <View style={styles.Container}>
+    // <View style={styles.Container}>
+    <Content contentContainerStyle={{ flex: 1 }}>
       <MapView style={styles.map} region={region}>
         <Marker coordinate={region} pinColor="green" />
       </MapView>
@@ -27,7 +28,8 @@ const MapContainer = ({
       {(resultTypes.pickUp || resultTypes.dropOff) && (
         <SearchResults predictions={predictions} />
       )}
-    </View>
+    </Content>
+    // </View>
   );
 };
 

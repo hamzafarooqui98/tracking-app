@@ -2,6 +2,9 @@ import React from "react";
 import { Container } from "native-base";
 
 import MapContainer from "./MapContainer/index";
+import HeaderComponent from "../../../Components/HeaderComponent/index";
+import FooterComponent from "../../../Components/FooterComponent/index";
+const taxiLogo = require("../../../Assets/Images/taxi_logo_white.png");
 
 class Home extends React.Component {
   componentDidMount() {
@@ -18,6 +21,7 @@ class Home extends React.Component {
 
     return (
       <Container>
+        <HeaderComponent logo={taxiLogo} />
         {this.props.region && (
           <MapContainer
             region={this.props.region}
@@ -28,6 +32,7 @@ class Home extends React.Component {
             predictions={this.props.predictions}
           />
         )}
+        <FooterComponent />
       </Container>
     );
   }
