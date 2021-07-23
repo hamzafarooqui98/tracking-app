@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 
 import styles from "./mapContainerStyles";
 import SearchBox from "../SearchBox/index";
-import SearchResults from "../SearchResults/index";
+// import SearchResults from "../SearchResults/index";
 
 const MapContainer = ({
   region,
@@ -13,6 +13,7 @@ const MapContainer = ({
   getAddressPredictions,
   resultTypes,
   predictions,
+  getSelectedAddress,
 }) => {
   return (
     // <View style={styles.Container}>
@@ -24,10 +25,11 @@ const MapContainer = ({
         getInputData={getInputData}
         toggleSearchResultModal={toggleSearchResultModal}
         getAddressPredictions={getAddressPredictions}
+        getSelectedAddress={getSelectedAddress}
       />
-      {(resultTypes.pickUp || resultTypes.dropOff) && (
+      {/* {(resultTypes.pickUp || resultTypes.dropOff) && (
         <SearchResults predictions={predictions} />
-      )}
+      )} */}
     </Content>
     // </View>
   );

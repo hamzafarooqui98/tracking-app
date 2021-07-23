@@ -3,6 +3,7 @@ import constants from "./actionConstants";
 import { Dimensions } from "react-native";
 import * as Location from "expo-location";
 import RNGooglePlaces from "react-native-google-places";
+import request from "../../../Utilities/request";
 
 //--------------------
 //Constants
@@ -12,6 +13,8 @@ const {
   GET_INPUT,
   TOGGLE_SEARCH_RESULT,
   GET_ADDRESS_PREDICTIONS,
+  GET_SELECTED_ADDRESS,
+  GET_DISTANCE_MATRIX,
 } = constants;
 
 const { width, height } = Dimensions.get("window");
@@ -92,6 +95,62 @@ export function getAddressPredictions() {
   };
 }
 
+//GET SELECTED ADDRESS
+export const getSelectedAddress = (payload) => {
+  // const dummyNumbers ={
+  // 	baseFare:0.4,
+  // 	timeRate:0.14,
+  // 	distanceRate:0.97,
+  // 	surge:1
+  // }
+  return (dispatch, store) => {
+    dispatch({
+      type: GET_SELECTED_ADDRESS,
+      payload,
+    });
+
+    //Get the distance and time
+    request
+      .get("https://maps.googleapis.com/maps/api/distancematrix/json")
+      .query({
+        origins:
+          store().home.region.latitude + "," + store().home.region.longitude,
+        destinations:
+          store().home.selectedAddress.latitude +
+          "," +
+          store().home.selectedAddress.longitude,
+        mode: "driving",
+        key: "AIzaSyCNFJ91ksP57SweEz_mDgDXAewlJMlr2RI",
+      })
+      .finish((error, response) => {
+        dispatch({
+          type: GET_DISTANCE_MATRIX,
+          payload: response.body,
+        });
+      })
+      // 	setTimeout(function(){
+      // 		if(store().home.selectedAddress.selectedPickUp && store().home.selectedAddress.selectedDropOff){
+      // 			const fare = calculateFare(
+      // 				dummyNumbers.baseFare,
+      // 				dummyNumbers.timeRate,
+      // 				store().home.distanceMatrix.rows[0].elements[0].duration.value,
+      // 				dummyNumbers.distanceRate,
+      // 				store().home.distanceMatrix.rows[0].elements[0].distance.value,
+      // 				dummyNumbers.surge,
+      // 			);
+      // 			dispatch({
+      // 				type:GET_FARE,
+      // 				payload:fare
+      // 			})
+      // 		}
+
+      // 	},2000)
+
+      // })
+      .catch((error) => console.log(error.message));
+  };
+};
+
 //--------------------
 //Action Handlers
 //--------------------
@@ -165,17 +224,36 @@ const handleGetAddressPredictions = (state, action) => {
   });
 };
 
+const handleGetSelectedAddress = (state, action) => {
+  return update(state, {
+    selectedAddress: {
+      $set: action.payload,
+    },
+  });
+};
+
+const handleGetDitanceMatrix = (state, action) => {
+  return update(state, {
+    distanceMatrix: {
+      $set: action.payload,
+    },
+  });
+};
+
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT: handleGetInputDate,
   TOGGLE_SEARCH_RESULT: handleToggleSearchResult,
   GET_ADDRESS_PREDICTIONS: handleGetAddressPredictions,
+  GET_SELECTED_ADDRESS: handleGetSelectedAddress,
+  GET_DISTANCE_MATRIX: handleGetDitanceMatrix,
 };
 
 const initialState = {
   region: {},
   inputData: {},
   resultTypes: {},
+  selectedAddress: {},
 };
 
 export const HomeReducer = (state = initialState, action) => {

@@ -12,12 +12,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const region = {
-      latitude: 24.8607,
-      longitude: 67.0011,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    };
+    // const region = {
+    //   latitude: 24.8607,
+    //   longitude: 67.0011,
+    //   latitudeDelta: 0.0922,
+    //   longitudeDelta: 0.0421,
+    // };
 
     return (
       <Container>
@@ -30,6 +30,7 @@ class Home extends React.Component {
             getAddressPredictions={this.props.getAddressPredictions}
             resultTypes={this.props.resultTypes}
             predictions={this.props.predictions}
+            getSelectedAddress={this.props.getSelectedAddress}
           />
         )}
         <FooterComponent />
