@@ -6,21 +6,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 
 import styles from "./searchBoxStyles";
 
-const SearchBox = ({
-  getInputData,
-  toggleSearchResultModal,
-  getAddressPredictions,
-  getSelectedAddress,
-}) => {
-  function handleInput(key, val) {
-    getInputData({
-      key,
-      value: val,
-    });
-    // getAddressPredictions();
-  }
-
-  const handleGetSelectedAddress = (place) => getSelectedAddress(place);
+const SearchBox = ({ getSelectedAddressAndFare }) => {
+  handleGetSelectedAddressAndFare = (place) => getSelectedAddressAndFare(place);
 
   return (
     <GooglePlacesAutocomplete
@@ -31,8 +18,8 @@ const SearchBox = ({
       }}
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-        handleGetSelectedAddress(
+        // console.log(data, details);
+        this.handleGetSelectedAddressAndFare(
           details.geometry.location
           // latitude: details.geometry.location.lat,
           // longitude: details.geometry.location.lng,
@@ -65,33 +52,6 @@ const SearchBox = ({
         listView: { backgroundColor: "white" },
       }}
     />
-    // <View style={styles.searchBox}>
-    //   <View style={styles.inputWrapper}>
-    //     <Text style={styles.label}>PICK UP</Text>
-    //     <InputGroup>
-    //       <FontAwesome name="search" size={15} color="red" />
-    //       <Input
-    //         style={styles.inputSearch}
-    //         placeholder="Choose pick-up location"
-    //         onChangeText={handleInput.bind(this, "pickUp")}
-    //         onFocus={() => toggleSearchResultModal("pickUp")}
-    //       />
-    //     </InputGroup>
-    //   </View>
-
-    //   <View style={styles.secondInputWrapper}>
-    //     <Text style={styles.label}>DROP-OFF</Text>
-    //     <InputGroup>
-    //       <FontAwesome name="search" size={15} color="red" />
-    //       <Input
-    //         style={styles.inputSearch}
-    //         placeholder="Choose drop-off location"
-    //         onChangeText={handleInput.bind(this, "dropOff")}
-    //         onFocus={() => toggleSearchResultModal("dropOff")}
-    //       />
-    //     </InputGroup>
-    //   </View>
-    // </View>
   );
 };
 

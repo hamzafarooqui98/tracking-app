@@ -4,6 +4,7 @@ import { Container } from "native-base";
 import MapContainer from "./MapContainer/index";
 import HeaderComponent from "../../../Components/HeaderComponent/index";
 import FooterComponent from "../../../Components/FooterComponent/index";
+import Fare from "./Fare/index";
 const taxiLogo = require("../../../Assets/Images/taxi_logo_white.png");
 
 class Home extends React.Component {
@@ -25,14 +26,10 @@ class Home extends React.Component {
         {this.props.region && (
           <MapContainer
             region={this.props.region}
-            getInputData={this.props.getInputData}
-            toggleSearchResultModal={this.props.toggleSearchResultModal}
-            getAddressPredictions={this.props.getAddressPredictions}
-            resultTypes={this.props.resultTypes}
-            predictions={this.props.predictions}
-            getSelectedAddress={this.props.getSelectedAddress}
+            getSelectedAddressAndFare={this.props.getSelectedAddressAndFare}
           />
         )}
+        {this.props.fare && <Fare fare={this.props.fare} />}
         <FooterComponent />
       </Container>
     );

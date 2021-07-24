@@ -30,13 +30,7 @@ const FooterComponent = ({ logo }) => {
   ];
 
   return (
-    <Footer
-      style={{
-        borderWidth: 1,
-        borderColor: "red",
-        justifyContent: "flex-start",
-      }}
-    >
+    <Footer>
       <FooterTab style={styles.footerContainer}>
         {tabs.map((obj, index) => {
           return (
