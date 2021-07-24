@@ -1,10 +1,9 @@
 import React from "react";
-import { Text } from "react-native";
-import { View, InputGroup, Input } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import styles from "./searchBoxStyles";
+import { GOOGLE_MAPS_APIKEY } from "../../../../Utilities/googleMapKey";
 
 const SearchBox = ({ getSelectedAddressAndFare }) => {
   handleGetSelectedAddressAndFare = (place) => getSelectedAddressAndFare(place);
@@ -28,7 +27,7 @@ const SearchBox = ({ getSelectedAddressAndFare }) => {
         );
       }}
       query={{
-        key: "AIzaSyCNFJ91ksP57SweEz_mDgDXAewlJMlr2RI",
+        key: GOOGLE_MAPS_APIKEY,
         language: "en",
         components: "country:pk",
       }}

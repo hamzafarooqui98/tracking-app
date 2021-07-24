@@ -3,6 +3,7 @@ import { Dimensions } from "react-native";
 import * as Location from "expo-location";
 
 import constants from "./actionConstants";
+import { GOOGLE_MAPS_APIKEY } from "../../../Utilities/googleMapKey";
 import request from "../../../Utilities/request";
 import calculateFare from "../../../Utilities/fareCalculator";
 
@@ -86,7 +87,7 @@ export const getSelectedAddressAndFare = (payload) => {
           "," +
           store().home.selectedAddress.lng,
         mode: "driving",
-        key: "AIzaSyCNFJ91ksP57SweEz_mDgDXAewlJMlr2RI",
+        key: GOOGLE_MAPS_APIKEY,
       })
       .then((response) => {
         console.log(response);

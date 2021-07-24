@@ -27,6 +27,7 @@ class Home extends React.Component {
           <MapContainer
             region={this.props.region}
             getSelectedAddressAndFare={this.props.getSelectedAddressAndFare}
+            selectedAddress={this.props.selectedAddress}
           />
         )}
         {this.props.fare && <Fare fare={this.props.fare} />}
